@@ -130,7 +130,10 @@ def getAllSeeds():
 
 def main():
     # Target Seed Name
-    seed_name = "_SEED, 2026-01-25 [Test] (Create Folders)"
+    # Input seed name format: "_SEED, YYYY-MM-DD [App Name] (Description)"
+
+    #seed_name = "_SEED, 2026-01-25 [Test] (Create Folders)"
+    seed_name = input("Enter the Seed name (e.g., '_SEED, 2026-01-25 [App Name] (Description)'): ").strip()
 
     # Step 1: Locate the Seed in the SEED_DATABASE
     seed_page = find_seed_by_name(seed_name)

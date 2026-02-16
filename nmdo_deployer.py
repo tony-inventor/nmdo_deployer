@@ -133,7 +133,7 @@ def main():
     # Input seed name format: "_SEED, YYYY-MM-DD [App Name] (Description)"
 
     #seed_name = "_SEED, 2026-01-25 [Test] (Create Folders)"
-    seed_name = input("Enter the Seed name (e.g., '_SEED, 2026-01-25 [App Name] (Description)'): ").strip()
+    seed_name = os.getenv("SEED_NAME", "").strip()
 
     # Step 1: Locate the Seed in the SEED_DATABASE
     seed_page = find_seed_by_name(seed_name)
@@ -144,10 +144,11 @@ def main():
 
     # Step 2: Establish Workspace
     app_name = seed_name.split("(")[-1].strip(")")
-    # Ask the user where to save the deployed modules (allow blank for default)
+    # Get target folder from environment variable (or use app_name as fallback)
     default_path = os.path.abspath(app_name)
-    user_path = input(f"Enter target workspace path (leave blank to use '{default_path}'): ").strip()
+    user_path = os.getenv("SEED_TARGET_FOLDER", "").strip()
     base_workspace = os.path.abspath(user_path) if user_path else default_path
+    print(f"📁 Base Workspace: {base_workspace}")
     os.makedirs(base_workspace, exist_ok=True)
     print("🚀 NMDO Deployer | Seed DB -> Module DB")
     print(f"📂 Workspace: {base_workspace}\n")

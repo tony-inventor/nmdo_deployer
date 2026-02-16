@@ -144,7 +144,11 @@ def main():
 
     # Step 2: Establish Workspace
     app_name = seed_name.split("(")[-1].strip(")")
-    base_workspace = os.path.abspath(app_name)
+    # Ask the user where to save the deployed modules (allow blank for default)
+    default_path = os.path.abspath(app_name)
+    user_path = input(f"Enter target workspace path (leave blank to use '{default_path}'): ").strip()
+    base_workspace = os.path.abspath(user_path) if user_path else default_path
+    os.makedirs(base_workspace, exist_ok=True)
     print("🚀 NMDO Deployer | Seed DB -> Module DB")
     print(f"📂 Workspace: {base_workspace}\n")
 
